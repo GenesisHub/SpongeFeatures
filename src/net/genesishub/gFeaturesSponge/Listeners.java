@@ -40,7 +40,8 @@ public class Listeners {
 	public void onServerStart(InitializationEvent event){
 		try{
 			CommandService cmdService = game.getCommandDispatcher();
-			//cmdService.register(this, new Speed(logger, game), "speed");
+			CommandHub ch = new CommandHub();
+			ch.Initialize(cmdService, logger, game, this);
 		}
 		catch(Exception e){
 			e.printStackTrace();
