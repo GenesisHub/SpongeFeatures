@@ -9,7 +9,10 @@ import org.spongepowered.api.event.state.InitializationEvent;
 import org.spongepowered.api.event.state.PreInitializationEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.command.CommandService;
+
 import com.google.inject.Inject;
+import net.genesishub.gFeaturesSponge.commands.actAsConsole;
 
 @Plugin(id = "gFeaturesSponge", name = "gFeatures-Sponge", version = "1.0.0")
 public class Listeners {
@@ -37,7 +40,9 @@ public class Listeners {
 	@Subscribe
 	public void Initialization(InitializationEvent event) {
 		try{
-		game.getCommandDispatcher().register(this, new Speed(), "speed");
+			CommandService cmdService = game.getCommandDispatcher();
+			cmdService.register(this, new actAsConsole(logger, game), "asconsole");
+			game.getCommandDispatcher().register(this, new Speed(), "speed");
 		}
 		catch(Exception e){
 			e.printStackTrace();
