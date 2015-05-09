@@ -45,7 +45,7 @@ public class Broadcast implements CommandCallable{
 
 	@Override
 	public Text getUsage(CommandSource arg0) {
-		Text text = Texts.of(TextColors.GOLD + "/broadcast [message]");
+		Text text = Texts.of(TextColors.GOLD, "/broadcast [message]");
 		return text;
 	}
 
@@ -53,18 +53,19 @@ public class Broadcast implements CommandCallable{
 	public Optional<CommandResult> process(CommandSource src, String arg1) throws CommandException {
 		if(arg1.length() < 1){
 			if(src instanceof Player){
-			src.sendMessage(Texts.of(TextColors.GOLD + "Usage: /broadcast [message]"));
+			src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /broadcast [message]"));
 			}
 			else{
-				src.sendMessage(Texts.of("Usage: /broadcast [message]"));
+				src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /broadcast [message]"));
 			}
 		} 
 		else{
 		if(arg1.length() >= 1){
-			game.getServer().broadcastMessage(Texts.of(TextColors.DARK_AQUA + "[" +  TextColors.GOLD + "Broadcast" + TextColors.DARK_AQUA + "]" + arg1));
+			Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Broadcast").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder(arg1).color(TextColors.GREEN).build()).build()).build()).build();
+			game.getServer().broadcastMessage(text);
 		}
 		else{
-			src.sendMessage(Texts.of(TextColors.GOLD + "Usage: /broadcast [message]"));
+			src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /broadcast [message]"));
 		}
 		}
 		return Optional.of(CommandResult.empty());
@@ -72,7 +73,7 @@ public class Broadcast implements CommandCallable{
 
 	@Override
 	public boolean testPermission(CommandSource arg0) {
-		return arg0.hasPermission("gfeatures.commands.speed");
+		return arg0.hasPermission("gfeatures.commands.broadcast");
 	}
 
 }
