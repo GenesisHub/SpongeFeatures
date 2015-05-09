@@ -27,11 +27,11 @@ public class Listeners {
 	Logger logger;
 	@Subscribe
 	public void onServerStart(ServerStartingEvent event) {
-	    logger.info("______________________________________________________________________");
-	    logger.info("[gFeatures]Starting gFeatures-Sponge...");
-	    logger.info("[gFeatures]You are running gFeatures-Sponge version " + pluginversion);
-	    logger.info("[gFeatures]Remember! This plugin is still in Beta! Take backups!");
-	    logger.info("______________________________________________________________________");
+	    logger.info("\n______________________________________________________________________");
+	    logger.info("\n[gFeatures]Starting gFeatures-Sponge...");
+	    logger.info("\n[gFeatures]You are running gFeatures-Sponge version " + pluginversion);
+	    logger.info("\n[gFeatures]Remember! This plugin is still in Beta! Take backups!");
+	    logger.info("\n______________________________________________________________________");
 	    CommandSpec myCommandSpec = CommandSpec.builder()
 	    .setDescription(Texts.of("Sets your speed."))
 	    .setPermission("gfeatures.commands.speed")
@@ -40,11 +40,11 @@ public class Listeners {
 	}
 	@Subscribe
 	public void onServerStop(ServerStoppingEvent event) {
-	    logger.info("______________________________________________________________________");
-	    logger.info("[gFeatures]Starting gFeatures-Sponge...");
-	    logger.info("[gFeatures]You are running gFeatures-Sponge version " + pluginversion);
-	    logger.info("[gFeatures]Remember! This plugin is still in Beta! Take backups!");
-	    logger.info("______________________________________________________________________");
+	    logger.info("\n______________________________________________________________________");
+	    logger.info("\n[gFeatures]Stopping gFeatures-Sponge...");
+	    logger.info("\n[gFeatures]You are running gFeatures-Sponge version " + pluginversion);
+	    logger.info("\n[gFeatures]Remember! This plugin is still in Beta! Take backups!");
+	    logger.info("\n______________________________________________________________________");
 	}
 	@Subscribe
 	public void Initalization(InitializationEvent event) {
