@@ -14,16 +14,12 @@ public class Speed implements CommandExecutor{
 
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext con) throws CommandException {
-		if(con.getAll(key)){
-			
-		}
 	     if(src instanceof Player) {
 	    	    Player player = (Player) src;
 	    	    player.sendMessage(Texts.of("S"));
 	    	}
 	    	else if(src instanceof ConsoleSource) {
 	    	    src.sendMessage(Texts.of(""));
-	    	    // The Cake Is a Lie
 	    	}
 	    	else if(src instanceof CommandBlockSource) {
 	    	    src.sendMessage(Texts.of("Hello Companion Cube!"));

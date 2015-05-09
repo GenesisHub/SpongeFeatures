@@ -8,6 +8,7 @@ import org.spongepowered.api.Game;
 import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.state.InitializationEvent;
 import org.spongepowered.api.event.state.ServerStartedEvent;
+import org.spongepowered.api.event.state.ServerStartingEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.command.CommandService;
@@ -25,7 +26,7 @@ public class Listeners {
     @Inject
 	Logger logger;
 	@Subscribe
-	public void onServerStart(ServerStartedEvent event) {
+	public void onServerStart(ServerStartingEvent event) {
 	    logger.info("______________________________________________________________________");
 	    logger.info("[gFeatures]Starting gFeatures-Sponge...");
 	    logger.info("[gFeatures]You are running gFeatures-Sponge version " + pluginversion);
@@ -52,6 +53,9 @@ public class Listeners {
 			    .setDescription(Texts.of("Sets your speed."))
 			    .setPermission("gfeatures.commands.speed")
 			    .setExecutor(new Speed()).build();
+				try{
 			    cmdService.register(this, speed, "speed");
+			    }
+				catch(Exception e){}
 	}
 }
