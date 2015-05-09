@@ -1,6 +1,5 @@
 package net.genesishub.gFeaturesSponge.commands;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,11 +13,8 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
-import org.spongepowered.api.util.command.args.CommandContext;
 import org.spongepowered.api.util.command.source.CommandBlockSource;
 import org.spongepowered.api.util.command.source.ConsoleSource;
-import org.spongepowered.api.util.command.spec.CommandExecutor;
-
 import com.google.common.base.Optional;
 
 public class Speed implements CommandCallable{
@@ -26,10 +22,10 @@ public class Speed implements CommandCallable{
 	private static Logger log;
 	private static Game game;
 	
-	public Speed(Logger logger, Game games){
+	/*public Speed(Logger logger, Game games){
 		log = logger;
 		game = games;
-	}
+	}*/
 
 	@Override
 	public Optional<Text> getHelp(CommandSource arg0) {

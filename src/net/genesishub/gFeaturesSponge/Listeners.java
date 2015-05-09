@@ -9,8 +9,6 @@ import org.spongepowered.api.event.state.InitializationEvent;
 import org.spongepowered.api.event.state.PreInitializationEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.text.format.TextColors;
-
 import com.google.inject.Inject;
 
 @Plugin(id = "gFeaturesSponge", name = "gFeatures-Sponge", version = "1.0.0")
@@ -22,11 +20,11 @@ public class Listeners {
 	Logger logger;
 	@Subscribe
 	public void onServerStart(PreInitializationEvent event) {
-	    logger.info(TextColors.DARK_AQUA + "\n______________________________________________________________________");
-	    logger.info(TextColors.DARK_AQUA + "\n[gFeatures]Starting gFeatures-Sponge...");
-	    logger.info(TextColors.DARK_AQUA + "\n[gFeatures]You are running gFeatures-Sponge version " + pluginversion);
-	    logger.info(TextColors.DARK_AQUA + "\n[gFeatures]Remember! This plugin is still in Beta! Take backups!");
-	    logger.info(TextColors.DARK_AQUA + "\n______________________________________________________________________");
+	    logger.info("\n______________________________________________________________________");
+	    logger.info("\n[gFeatures]Starting gFeatures-Sponge...");
+	    logger.info("\n[gFeatures]You are running gFeatures-Sponge version " + pluginversion);
+	    logger.info("\n[gFeatures]Remember! This plugin is still in Beta! Take backups!");
+	    logger.info("\n______________________________________________________________________");
 	}
 	@Subscribe
 	public void onServerStop(ServerStoppingEvent event) {
@@ -39,9 +37,10 @@ public class Listeners {
 	@Subscribe
 	public void Initialization(InitializationEvent event) {
 		try{
-		game.getCommandDispatcher().register(this, new Speed(logger, game), "speed");
+		game.getCommandDispatcher().register(this, new Speed(), "speed");
 		}
 		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 }
