@@ -12,13 +12,12 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.command.CommandService;
 
 import com.google.inject.Inject;
-import net.genesishub.gFeaturesSponge.commands.actAsConsole;
 
-@Plugin(id = "gFeaturesSponge", name = "gFeatures-Sponge", version = "1.0.0")
+@Plugin(id = "gFeaturesSponge", name = "gFeaturesSponge", version = "1.0")
 public class Listeners {
 	static String pluginversion = "1.0.0";
 	@Inject
-	static Game game;
+	Game game;
     @Inject
 	Logger logger;
 	@Subscribe
@@ -38,11 +37,10 @@ public class Listeners {
 	    logger.info("\n______________________________________________________________________");
 	}
 	@Subscribe
-	public void Initialization(InitializationEvent event) {
+	public void onServerStart(InitializationEvent event){
 		try{
 			CommandService cmdService = game.getCommandDispatcher();
-			cmdService.register(this, new actAsConsole(logger, game), "asconsole");
-			game.getCommandDispatcher().register(this, new Speed(), "speed");
+			//cmdService.register(this, new Speed(logger, game), "speed");
 		}
 		catch(Exception e){
 			e.printStackTrace();

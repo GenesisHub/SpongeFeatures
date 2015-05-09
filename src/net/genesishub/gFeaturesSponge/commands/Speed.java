@@ -13,19 +13,17 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
-import org.spongepowered.api.util.command.source.CommandBlockSource;
-import org.spongepowered.api.util.command.source.ConsoleSource;
 import com.google.common.base.Optional;
 
 public class Speed implements CommandCallable{
 	
-	private static Logger log;
-	private static Game game;
+	Game game;
+	Logger log;
 	
-	/*public Speed(Logger logger, Game games){
+	public Speed(Logger logger, Game games){
 		log = logger;
 		game = games;
-	}*/
+	}
 
 	@Override
 	public Optional<Text> getHelp(CommandSource arg0) {
@@ -52,7 +50,7 @@ public class Speed implements CommandCallable{
 
 	@Override
 	public Optional<CommandResult> process(CommandSource src, String arg1) throws CommandException {
-		if(arg1.length() > 1){
+		if(arg1.length() < 1){
 			if(src instanceof Player){
 			src.sendMessage(Texts.of(TextColors.GOLD + "Usage: /speed [amount] [player (OPTIONAL)]"));
 			}
@@ -63,19 +61,20 @@ public class Speed implements CommandCallable{
 		else{
 		if(arg1.length() == 1){
 		if(src instanceof Player) {
-			
-    	    Player player = (Player) src;
-    	    player.sendMessage(Texts.of("Speed"));
+			try{
+			int speed = Integer.parseInt(arg1);
+			Player player = (Player) src;
+			}
+			catch(Exception e){
+				src.sendMessage(Texts.of(TextColors.GOLD + "Error with your input! Try again."));
+			}
     	}
-    	else if(src instanceof ConsoleSource) {
-    	    src.sendMessage(Texts.of(""));
-    	}
-    	else if(src instanceof CommandBlockSource) {
-    	    src.sendMessage(Texts.of("Hello Companion Cube!"));
+    	else{
+    		src.sendMessage(Texts.of(TextColors.GOLD + "Usage: /speed [amount] [player]"));
     	}
 		}
 		}
-		return null;
+		return Optional.of(CommandResult.empty());
 	}
 
 	@Override
