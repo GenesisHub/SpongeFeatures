@@ -13,6 +13,7 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
+
 import com.google.common.base.Optional;
 
 public class Speed implements CommandCallable{
@@ -62,7 +63,9 @@ public class Speed implements CommandCallable{
 		if(arg1.length() == 1){
 		if(src instanceof Player) {
 			try{
+			@SuppressWarnings("unused")
 			int speed = Integer.parseInt(arg1);
+			@SuppressWarnings("unused")
 			Player player = (Player) src;
 			}
 			catch(Exception e){

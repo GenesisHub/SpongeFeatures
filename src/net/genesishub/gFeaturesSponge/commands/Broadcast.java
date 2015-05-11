@@ -61,7 +61,7 @@ public class Broadcast implements CommandCallable{
 		} 
 		else{
 		if(arg1.length() >= 1){
-			Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Broadcast").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder(arg1).color(TextColors.GREEN).build()).build()).build()).build();
+			Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Broadcast").color(TextColors.GOLD).append(Texts.builder("] ").color(TextColors.DARK_AQUA).append(Texts.builder(arg1).color(TextColors.GREEN).build()).build()).build()).build();
 			game.getServer().broadcastMessage(text);
 		}
 		else{
@@ -73,7 +73,7 @@ public class Broadcast implements CommandCallable{
 
 	@Override
 	public boolean testPermission(CommandSource arg0) {
-		return arg0.hasPermission("gfeatures.commands.broadcast");
+		return arg0.hasPermission("gfeatures.broadcast");
 	}
 
 }

@@ -2,6 +2,7 @@ package net.genesishub.gFeaturesSponge;
 
 import net.genesishub.gFeaturesSponge.commands.Broadcast;
 import net.genesishub.gFeaturesSponge.commands.Speed;
+import net.genesishub.gFeaturesSponge.commands.Teleport;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
@@ -10,7 +11,7 @@ import org.spongepowered.api.service.command.CommandService;
 public class CommandHub {
 	public void Initialize(CommandService cmdService, Logger logger, Game game, Listeners listeners){
 		cmdService.register(listeners, new Broadcast(logger, game), "broadcast");
-		cmdService.register(listeners, new Speed(logger, game), "tp");
+		cmdService.register(listeners, new Teleport(logger, game), "tp");
 		cmdService.register(listeners, new Speed(logger, game), "gm");
 		cmdService.register(listeners, new Speed(logger, game), "tphere");
 		cmdService.register(listeners, new Speed(logger, game), "tpa");

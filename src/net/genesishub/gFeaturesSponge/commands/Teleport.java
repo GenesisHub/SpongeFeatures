@@ -14,8 +14,6 @@ import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.extent.Extent;
-
 import com.google.common.base.Optional;
 
 public class Teleport implements CommandCallable{
@@ -30,7 +28,7 @@ public class Teleport implements CommandCallable{
 
 	@Override
 	public Optional<Text> getHelp(CommandSource arg0) {
-		Optional<Text> text = Optional.of(Texts.of(TextColors.GOLD, "/tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z]"));
+		Optional<Text> text = Optional.of(Texts.of(TextColors.GOLD, "Usage: /tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z] or /tp [x] [y] [z]"));
 		return text;
 	}
 
@@ -47,24 +45,23 @@ public class Teleport implements CommandCallable{
 
 	@Override
 	public Text getUsage(CommandSource arg0) {
-		Text text = Texts.of(TextColors.GOLD, "/tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z] or /tp [x] [y] [z]");
+		Text text = Texts.of(TextColors.GOLD, "Usage: /tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z] or /tp [x] [y] [z]");
 		return text;
 	}
 
 	@Override
 	public Optional<CommandResult> process(CommandSource src, String arg1) throws CommandException {
+		String[] strs = arg1.split("/s");
 		if(arg1.length() < 1){
 			if(src instanceof Player){
-			src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /broadcast [message]"));
+			src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z] or /tp [x] [y] [z]"));
 			}
 			else{
-				src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /broadcast [message]"));
+				src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z] or /tp [x] [y] [z]"));
 			}
 		} 
-		else{
-		if(arg1.length() >= 1){
-			String what;
-			if(src instanceof Player){
+		if(src instanceof Player){
+			if(strs.length == 1){			
 				for(Player player : game.getServer().getOnlinePlayers()){
 					if(arg1.equals(player.getName())){
 						Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Teleport").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder("Teleporting...").color(TextColors.GRAY).build()).build()).build()).build();
@@ -74,7 +71,23 @@ public class Teleport implements CommandCallable{
 						return Optional.of(CommandResult.empty());
 					}
 				}
-				if(arg1.length() == 3){
+				src.sendMessage(Texts.of(TextColors.GOLD, "Error in your input. Try again!"));
+			}
+			else if(strs.length == 2){
+				try{
+				String[] str = arg1.split("/s");
+				Player player = (Player) game.getServer().getPlayer(str[0]);
+				Player playertp = (Player) game.getServer().getPlayer(str[1]);
+				Location loc = playertp.getLocation();
+				player.setLocation(loc);
+				Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Teleport").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder("Teleporting...").color(TextColors.GRAY).build()).build()).build()).build();
+				src.sendMessage(text);
+				}
+				catch(Exception e){
+					src.sendMessage(Texts.of(TextColors.GOLD, "Error in your input. Try again!"));
+				}
+			}
+			else if(strs.length == 3){
 					try{
 					String[] str = arg1.split("/s");
 					double x = Double.parseDouble(str[0]);
@@ -83,47 +96,76 @@ public class Teleport implements CommandCallable{
 					Location playertp = new Location(((Player) src).getWorld(), x, y, z);
 					((Player) src).setLocation(playertp);
 					Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Teleport").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder("Teleporting...").color(TextColors.GRAY).build()).build()).build()).build();
+					src.sendMessage(text);
 					}
 					catch(Exception e){
 						src.sendMessage(Texts.of(TextColors.GOLD, "Error in your input. Try again!"));
 					}
 				}
-				if(arg1.length() == 4){
+				else if(strs.length == 4){
 					try{
-						for(Player player : game.getServer().getOnlinePlayers()){
-							if(arg1.equals(player.getName())){
-								Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Teleport").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder("Teleporting...").color(TextColors.GRAY).build()).build()).build()).build();
-								Location playertp = player.getLocation();
-								((Player) src).setLocation(playertp);
-								src.sendMessage(text);
-								return Optional.of(CommandResult.empty());
-							}
-						}
 						String[] str = arg1.split("/s");
-						double x = Double.parseDouble(str[0]);
-						double y = Double.parseDouble(str[1]);
-						double z = Double.parseDouble(str[2]);
-						Location playertp = new Location(((Player) src).getWorld(), x, y, z);
-						((Player) src).setLocation(playertp);
+						double x = Double.parseDouble(str[1]);
+						double y = Double.parseDouble(str[2]);
+						double z = Double.parseDouble(str[3]);
+						String player = str[0];
+						Optional<Player> servert = game.getServer().getPlayer(player);
+						Location playertp = new Location(((Player) servert).getWorld(), x, y, z);
+						((Player) servert).setLocation(playertp);
+						Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Teleport").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder("Teleporting...").color(TextColors.GRAY).build()).build()).build()).build();
+						src.sendMessage(text);
+						((Player)servert).sendMessage(text);
 						}
 						catch(Exception e){
 							src.sendMessage(Texts.of(TextColors.GOLD, "Error in your input. Try again!"));
 						}
 				}
+				else{
+					src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z] or /tp [x] [y] [z]"));
+				}
 			}
 			else{
-				
+				if(strs.length == 2){
+					try{
+					String[] str = arg1.split("/s");
+					Player player = (Player) game.getServer().getPlayer(str[0]);
+					Player playertp = (Player) game.getServer().getPlayer(str[1]);
+					Location loc = playertp.getLocation();
+					player.setLocation(loc);
+					Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Teleport").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder("Teleporting...").color(TextColors.GRAY).build()).build()).build()).build();
+					src.sendMessage(text);
+					}
+					catch(Exception e){
+						src.sendMessage(Texts.of(TextColors.GOLD, "Error in your input. Try again!"));
+					}
+				}
+				else if(strs.length == 4){
+					try{
+						String[] str = arg1.split("/s");
+						double x = Double.parseDouble(str[1]);
+						double y = Double.parseDouble(str[2]);
+						double z = Double.parseDouble(str[3]);
+						String player = str[0];
+						Optional<Player> servert = game.getServer().getPlayer(player);
+						Location playertp = new Location(((Player) servert).getWorld(), x, y, z);
+						((Player) servert).setLocation(playertp);
+						Text text = Texts.builder("[").color(TextColors.DARK_AQUA).append(Texts.builder("Teleport").color(TextColors.GOLD).append(Texts.builder("]").color(TextColors.DARK_AQUA).append(Texts.builder("Teleporting...").color(TextColors.GRAY).build()).build()).build()).build();
+						src.sendMessage(text);
+						((Player)servert).sendMessage(text);
+						}
+						catch(Exception e){
+							src.sendMessage(Texts.of(TextColors.GOLD, "Error in your input. Try again!"));
+						}
+				}
+				else{
+					src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /tp [player] [to player (OPTIONAL)] or /tp [player] [x] [y] [z] or /tp [x] [y] [z]"));
+				}
 			}
-		}
-		else{
-			src.sendMessage(Texts.of(TextColors.GOLD, "Usage: /broadcast [message]"));
-		}
-		}
 		return Optional.of(CommandResult.empty());
 	}
 
 	@Override
 	public boolean testPermission(CommandSource arg0) {
-		return arg0.hasPermission("gfeatures.commands.teleport");
+		return arg0.hasPermission("gfeatures.teleport");
 	}
 }
